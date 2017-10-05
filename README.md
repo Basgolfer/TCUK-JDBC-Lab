@@ -20,6 +20,8 @@ and how it all gets returned.
 * The repositories are where all the database logic actually happens.
 * The services are what call the repositories and do the actual computation requested by the controllers.
 
+Keep in mind that you might end up having to use things like RowMappers and ResultSetExtractors.  Just a reminder not to forget about those.
+
 ## Step 1 -- People
 For this first part, we want to handle Creating, Reading, Updating, and Deleting people from our database.  The schema
 is in the `resources/schema-h2.sql` file, and you can view it in the H2 console as well.
@@ -68,3 +70,10 @@ Remember, you're going to need a controller, model, repository, and service for 
 * Find a home by address
 * Find a home by person
 * Get a list of people who live in a certain home
+* Get all of the homes
+
+Notice when you try and get things that don't exist in the database we get an error?  Fix that.  Just make it so that requsting an item doesn't return anything as opposed to throwing the exception.
+
+### Some extra food for thought
+
+If you want to dynamically change queries based on fields, you need to do straight string creation not SQL string injection.  This is because the query gets wrapped to help protect a little against SQL injection.  This, however, means that you better be certain that user input does not go into that variable.
