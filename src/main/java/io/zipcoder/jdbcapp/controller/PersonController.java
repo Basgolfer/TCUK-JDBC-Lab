@@ -3,7 +3,6 @@ package io.zipcoder.jdbcapp.controller;
 import io.zipcoder.jdbcapp.model.Person;
 import io.zipcoder.jdbcapp.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,9 +19,8 @@ public class PersonController {
     private PersonService personService;
 
     @RequestMapping(value = "/people", method = RequestMethod.POST)
-    public ResponseEntity<Person> createPerson(@RequestBody @DateTimeFormat(pattern="yyyy-MM-dd") Person person) {
+    public ResponseEntity<Person> createPerson(@RequestBody Person person) {
         Person createdPerson = personService.createPerson(person);
-        System.out.println(person.getBirthday());
         return new ResponseEntity<Person>(createdPerson, HttpStatus.CREATED);
     }
 }
